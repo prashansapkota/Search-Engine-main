@@ -126,6 +126,28 @@ class TestSearch(TestCase):
         expected = print_basic() + keyword + '\n' + print_advanced() + str(advanced_option) + '\n' + print_advanced_option(advanced_option) + str(count) + '\n\nHere are your articles: [\'List of Canadian musicians\', \'French pop music\', \'Noise (music)\', \'1922 in music\', \'1986 in music\']\n'
         self.assertEqual(output, expected)
 
+    @patch('builtins.input')
+    def test_integration_random_article(self, input_mock):
+        # Testing random article selection by choosing the article at index 1.
+        keyword = 'music'
+        advanced_option = 3
+        index = 1
+        output = get_print(input_mock, [keyword, advanced_option, index])
+        # Expected output displaying the article at index 1.
+        expected = print_basic() + keyword + '\n' + print_advanced() + str(advanced_option) + '\n' + print_advanced_option(advanced_option) + str(index) + '\n\nHere are your articles: French pop music\n'
+        self.assertEqual(output, expected)
+
+    @patch('builtins.input')
+    def test_integration_favorite_article(self, input_mock):
+        # Testing favorite article functionality with the favorite article 'Rock music'.
+        keyword = 'music'
+        advanced_option = 4
+        favorite = 'Rock music'
+        output = get_print(input_mock, [keyword, advanced_option, favorite])
+        # Expected output indicating the favorite article 'Rock music' is present in the search results.
+        expected = print_basic() + keyword + '\n' + print_advanced() + str(advanced_option) + '\n' + print_advanced_option(advanced_option) + favorite + '\n\nHere are your articles: [\'List of Canadian musicians\', \'French pop music\', \'Noise (music)\', \'1922 in music\', \'1986 in music\', \'2009 in music\', \'Rock music\', \'Lights (musician)\', \'List of soul musicians\', \'Aube (musician)\', \'List of overtone musicians\', \'Tim Arnold (musician)\', \'Old-time music\', \'Arabic music\', \'List of Saturday Night Live musical sketches\', \'Voice classification in non-classical music\', \'1936 in music\', \'1962 in country music\', \'List of dystopian music, TV programs, and games\', \'Steve Perry (musician)\', \'David Gray (musician)\', \'Alex Turner (musician)\', \'List of gospel musicians\', \'Indian classical music\', \'1996 in music\', \'Joseph Williams (musician)\', \'The Hunchback of Notre Dame (musical)\', \'English folk music (1500–1899)\', \'Les Cousins (music club)\', \'Paul Carr (musician)\', \'2006 in music\', \'Sean Delaney (musician)\', \'Tony Kaye (musician)\', \'Danja (musician)\', \'Texture (music)\', \'Register (music)\', \'2007 in music\', \'2008 in music\']\nYour favorite article is in the returned articles!\n'
+        self.assertEqual(output, expected)
+
     
 
 # Write tests above this line. Do not remove.
