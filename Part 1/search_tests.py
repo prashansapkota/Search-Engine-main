@@ -45,6 +45,24 @@ class TestSearch(TestCase):
         # Testing article_count function with a count of 0. An empty list should be returned.
         self.assertEqual(article_count(0, titles), [])
 
+    def test_random_article(self):
+        titles = ['Article 1', 'Article 2', 'Article 3']
+         # Testing random_article function with a valid index of 1. The second article from the list should be returned.
+        self.assertEqual(random_article(1, titles), 'Article 2')
+        # Testing random_article function with an index of 0. The first article should be returned.
+        self.assertEqual(random_article(0, titles), 'Article 1')
+        # Testing random_article function with an out-of-bounds index. An empty string should be returned.
+        self.assertEqual(random_article(3, titles), '')
+
+    def test_favorite_article(self):
+        titles = ['Python', 'Java', 'C++']
+        # Testing article present
+        self.assertTrue(favorite_article('Python', titles))
+        # Testing case insensitivity
+        self.assertTrue(favorite_article('JAVA', titles))
+        # Testing article not present
+        self.assertFalse(favorite_article('Ruby', titles))
+
     
 
     #####################
