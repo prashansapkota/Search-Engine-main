@@ -63,6 +63,17 @@ class TestSearch(TestCase):
         # Testing article not present
         self.assertFalse(favorite_article('Ruby', titles))
 
+    def test_multiple_keywords(self):
+        initial_titles = ['Python programming', 'Java basics']
+        # Testing adding new articles
+        self.assertEqual(multiple_keywords('music', initial_titles), 
+                         ['Python programming', 'Java basics'] + search('music'))
+        # Testing no new articles
+        self.assertEqual(multiple_keywords('nonexistent', initial_titles), initial_titles)
+        # Testing case insensitivity
+        self.assertEqual(multiple_keywords('PYTHON', initial_titles), 
+                         ['Python programming', 'Java basics', 'Python (programming language)'])
+
     
 
     #####################
