@@ -27,6 +27,24 @@ class TestSearch(TestCase):
         # Testing case insensitivity by ensuring 'MUSIC' returns the same results as 'music'.
         self.assertEqual(search('MUSIC'), search('music'))
 
+    def test_title_length(self):
+        titles = ['Short', 'Medium length', 'This is a very long title']
+        # Testing title_length function by setting a max length of 10. Only titles with 10 or fewer characters should be returned.
+        self.assertEqual(title_length(10, titles), ['Short'])
+        # Testing title_length function where the max length is greater than any title. All titles should be included.
+        self.assertEqual(title_length(30, titles), titles)
+        # Testing title_length function with an unreasonably low max length (1). No titles should be returned.
+        self.assertEqual(title_length(1, titles), [])
+
+    def test_article_count(self):
+        titles = ['Article 1', 'Article 2', 'Article 3', 'Article 4']
+        # Testing article_count function with a count of 2. The function should return the first 2 articles from the list.
+        self.assertEqual(article_count(2, titles), ['Article 1', 'Article 2'])
+        # Testing article_count function where the requested count is greater than the number of articles available. 
+        self.assertEqual(article_count(5, titles), titles)
+        # Testing article_count function with a count of 0. An empty list should be returned.
+        self.assertEqual(article_count(0, titles), [])
+
     
 
     #####################
